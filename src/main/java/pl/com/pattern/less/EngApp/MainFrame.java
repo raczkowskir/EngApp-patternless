@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
         private JButton mySecondButton;
 
         // Constructor for a new frame
-
+        NewFrame2 raki;
         public MainFrame (){
 
                 super("My First Button Program");
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
         }
 
 
-        public static void main(String [] args) {
+        public static void mains(String [] args) {
 
                 // Make frame
                 MainFrame f = new MainFrame();
@@ -77,7 +77,8 @@ public class MainFrame extends JFrame {
 
                         }
                         if (e.getSource() == mySecondButton) {
-                                new NewFrame2();
+                                //new NewFrame2();
+                        	raki = NewFrame2.instanceNewFrame2();
                         }
                 }
         } // end of inner class

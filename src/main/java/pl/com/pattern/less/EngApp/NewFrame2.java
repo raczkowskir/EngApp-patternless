@@ -9,9 +9,16 @@ import javax.swing.JFrame;
 //import statements here
 public class NewFrame2 extends JFrame implements ActionListener
 {
-      //initialises the frame and opens it
-      public NewFrame2()
+      /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	//initialises the frame and opens it
+	private static NewFrame2 INSTANCE;
+     private NewFrame2()
       {
+    	  
               JButton open = new JButton("New Window");
               open.addActionListener(this);
               add(open);
@@ -22,4 +29,10 @@ public class NewFrame2 extends JFrame implements ActionListener
       {
               //code for the new frame
       }
+	public static NewFrame2 instanceNewFrame2() {
+		if (INSTANCE == null ){
+  		  INSTANCE = new NewFrame2();
+  	  }
+  	  return INSTANCE;
+	}
 }
