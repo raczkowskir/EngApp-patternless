@@ -11,6 +11,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 public class E1 extends JFrame implements ActionListener{
+	
+	//the method for debuging
+		public void log(String a){
+			System.out.println(a);
+		}
 
 	private JPanel contentPane;
 	static final  E1 frame1 = new E1();
@@ -46,15 +51,9 @@ public class E1 extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-	/*	if (frame2 == null)
-		{E2 frame2 = new E2();
-		frame2.setVisible(true);
-		}
-		else{frame2.setVisible(true);}
-			*/
-		//frame2 = new E2();
 		frame2.setVisible(true);
 		frame1.setVisible(false);
+		log("Przejscie do drugiego ekranu");
 		}
 		
 	
