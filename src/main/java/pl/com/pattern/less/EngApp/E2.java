@@ -21,6 +21,7 @@ public class E2 extends JFrame implements ActionListener {
 	private JButton btnCheck;
 	private ArrayList<String> listPL;
 	private ArrayList<String> listENG;
+	private int iterator= 0;
 	
 	public void createList(){
 //lista angielskich słowek
@@ -43,6 +44,7 @@ public class E2 extends JFrame implements ActionListener {
 	}
 	
 	public E2() {
+		createList();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -68,6 +70,12 @@ public class E2 extends JFrame implements ActionListener {
 		btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				txtrEnglish.setText(listENG.get(iterator));
+				if (iterator<2){
+					iterator++;
+				}
+				else 
+					iterator=0;
 			}
 		});
 		btnNext.setBounds(299, 97, 89, 47);
