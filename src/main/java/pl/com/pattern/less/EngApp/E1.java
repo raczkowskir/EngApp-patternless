@@ -45,7 +45,7 @@ public class E1 extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		JButton toE2 = new JButton("toE2");
-		toE2.setBounds(52, 64, 155, 79);
+		toE2.setBounds(51, 34, 329, 179);
 		contentPane.add(toE2);
 		toE2.addActionListener(this);
 	}
