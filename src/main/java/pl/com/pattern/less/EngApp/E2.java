@@ -27,6 +27,8 @@ public class E2 extends JFrame {
 	// and we do not want receive false result because of trashes in text field
 	private boolean screenTrash = false;
 	private boolean screenTrash2 = false;
+	private int nextBack = 0;
+	
 	// iterator which is pointing next position on a list
 	private int iterator = 0;
 	// iterator for checking - it is pointing on current position in our list
@@ -41,14 +43,20 @@ public class E2 extends JFrame {
 	public void createList() {
 		// list of english words
 		listENG = new ArrayList<String>();
-		listENG.add("dog");
-		listENG.add("cat");
-		listENG.add("bird");
+		listENG.add("1dog");
+		listENG.add("2cat");
+		listENG.add("3bird");
+		listENG.add("4monkey");
+		listENG.add("5elephant");
+		listENG.add("6stork");
 		// list of polish words
 		listPL = new ArrayList<String>();
-		listPL.add("pies");
-		listPL.add("kot");
-		listPL.add("ptak");
+		listPL.add("1pies");
+		listPL.add("2kot");
+		listPL.add("3ptak");
+		listPL.add("4małpa");
+		listPL.add("5słoń");
+		listPL.add("6bocian");
 
 	}
 
@@ -103,6 +111,14 @@ public class E2 extends JFrame {
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				log("Przejscie do nastepnej pozycji na liscie");
+				
+				log("iterator");
+				log(iterator);
+				
+				log("iterator2");
+				log(iterator2);
+				
+				
 				iterator2 = iterator;
 				if (listENG.size() == 0) {
 					txtENG.setText("empty list");
@@ -111,13 +127,30 @@ public class E2 extends JFrame {
 				} else {
 					txtENG.setText(listENG.get(iterator));
 					txtPL.setText("");
-					lblNumber.setText((iterator + 1) + "");
+					lblNumber.setText((iterator + 1) + " / " + listENG.size());
 
 					if (iterator < listENG.size() - 1) {
-						txtENG.setText(listENG.get(iterator));
+						if (iterator > 0) {
+							if(nextBack == 0){
+								
+							txtENG.setText(listENG.get(iterator));
+							nextBack =(1);
+							}
+							if(nextBack == (-1)){
+								iterator=iterator+2;
+							txtENG.setText(listENG.get(iterator));
+							nextBack =(1);
+							}
+							if(nextBack == (1)){							
+							txtENG.setText(listENG.get(iterator));
+							nextBack =(-1);
+							}}
 						iterator++;
 						deleted = false;
 						added = false;
+						
+						log("iterator");
+						log(iterator);
 					}
 
 					else {
@@ -198,11 +231,11 @@ public class E2 extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(106, 155, 89, 45);
+		btnDelete.setBounds(69, 155, 89, 45);
 		contentPane.add(btnDelete);
 		// btn Add
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(106, 97, 89, 47);
+		btnAdd.setBounds(69, 97, 89, 47);
 		contentPane.add(btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -225,8 +258,64 @@ public class E2 extends JFrame {
 		});
 
 		// labelNUMBER
-		lblNumber = new JLabel("0");
+		lblNumber = new JLabel("0 / " + listENG.size());
 		lblNumber.setBounds(400, 236, 24, 14);
 		contentPane.add(lblNumber);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(187, 97, 89, 47);
+		contentPane.add(btnBack);
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				log("Przejscie do poprzedniej pozycji na liscie");
+				log("iterator");
+				log(iterator);
+				
+				log("iterator2");
+				log(iterator2);
+				
+				iterator2 = iterator;
+				if (listENG.size() == 0) {
+					txtENG.setText("empty list");
+					lblNumber.setText("?");
+					log("lista pusta");
+				} else {
+					txtENG.setText(listENG.get(iterator));
+					txtPL.setText("");
+					lblNumber.setText((iterator + 1) + " / " + listENG.size());
+
+					if (iterator > 0) {
+						if(nextBack == 0){
+							iterator=listENG.size()-1;
+						txtENG.setText(listENG.get(iterator));
+						nextBack =(-1);
+						}
+						if(nextBack == 1){
+							iterator=iterator-2;
+						txtENG.setText(listENG.get(iterator));
+						nextBack =(-1);
+						}
+						if(nextBack == (-1)){							
+						txtENG.setText(listENG.get(iterator));
+						nextBack =(-1);
+						}
+						iterator--;
+						deleted = false;
+						added = false;
+						log("iterator");
+						log(iterator);
+					}
+
+					else {
+						iterator = listENG.size() - 1;
+						deleted = false;
+						added = false;
+						log("iterator");
+						log(iterator);
+					}
+
+				}
+			}
+		});
 	}
 }
