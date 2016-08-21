@@ -38,7 +38,7 @@ public class E1 extends JFrame implements ActionListener{
 	 */
 	public E1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(500, 80, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -48,7 +48,7 @@ public class E1 extends JFrame implements ActionListener{
 		toE2.setBounds(51, 34, 329, 179);
 		contentPane.add(toE2);
 		toE2.addActionListener(this);
-	}
+			}
 
 	public void actionPerformed(ActionEvent arg0) {
 		frame2.setVisible(true);
