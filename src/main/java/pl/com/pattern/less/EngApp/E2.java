@@ -12,7 +12,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 public class E2 extends JFrame {
-	// first commit for the branch Sceleton3
+	// last commit for:EngApp Pattern less - part 1 Sceleton3
+/*	Right now user can:
+		- use SQLite DB with GUI
+		- create and drop only one table
+		- insert new rows
+		- delete rows
+		- brows content of the table(forward and backward)*/
 
 	private JPanel contentPane;
 	private JTextArea txtENG;
@@ -23,9 +29,10 @@ public class E2 extends JFrame {
 	private JButton btnAdd;
 	private JButton btnCheck;
 	private JButton btnClearList;
-	// label which is showing index of current position in list (+1)and total
-	// volume
+	// label which is showing index of current position in list and total volume
 	private JLabel lblNumber;
+	// label for showing important information like "Table is empty!"
+	private JLabel prompt;
 	// iterator which is pointing next position on a list
 	private int iterator = 0;
 	// variable which is showing total volume of current table
@@ -81,17 +88,22 @@ public class E2 extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// moving to the next row in the table
 
-				if (iterator < volume) {
+				if (iterator < volume && volume != 0) {
 					iterator++;
-					System.out.println("Przejscie do nastepnej pozycji w tabeli: " + iterator);
-				} else {
+				} else if (iterator == volume && volume != 0) {
 					iterator = 1;
-					System.out.println("Przejscie do pierwszej pozycji w tabeli: " + iterator);
+				} else {
+					iterator = 0;
 				}
-				String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
-				txtENG.setText(resultSelectENG);
-				txtPL.setText("");
-
+				if (iterator == 0) {
+					txtENG.setText("");
+					txtPL.setText("");
+					prompt.setText("Table is empty!");
+				} else {
+					String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
+					txtENG.setText(resultSelectENG);
+					txtPL.setText("");
+				}
 				// setting label which is showing current position in table
 				String label = iterator + "/" + volume;
 				lblNumber.setText(label);
@@ -104,23 +116,23 @@ public class E2 extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// moving to the previous row in the table
-				
-			// obsluuzyc pusta tabele
-				
 				if (iterator > 1) {
 					iterator--;
-					System.out.println("Przejscie do poprzedniej pozycji w tabeli: " + iterator);
-					
+
 				} else {
 					iterator = volume;
-					System.out.println("Przejscie do ostatniej pozycji w tabeli: " + iterator);
 				}
-				String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
-				txtENG.setText(resultSelectENG);
-				txtPL.setText("");
-				
-				
-				
+
+				if (iterator == 0) {
+					txtENG.setText("");
+					txtPL.setText("");
+					prompt.setText("Table is empty!");
+				} else {
+					String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
+					txtENG.setText(resultSelectENG);
+					txtPL.setText("");
+				}
+
 				// setting label which is showing current position in table
 				String label = iterator + "/" + volume;
 				lblNumber.setText(label);
@@ -133,26 +145,37 @@ public class E2 extends JFrame {
 		contentPane.add(btnCheck);
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String resultSelect = sqlForApp.selectWord("list1", "plWord", iterator);
-				System.out.println("Wyswietlenie tlumaczenia: " + resultSelect);
-				txtPL.setText(resultSelect);
+				if (volume != 0) {
+					String resultSelect = sqlForApp.selectWord("list1", "plWord", iterator);
+					txtPL.setText(resultSelect);
+				}
 			}
 		});
 		// DELETE///////////////////////////////////
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sqlForApp.deleteWord("list1", iterator);
+				sqlForApp.deleteWord("list1", txtENG.getText());
+				if (iterator == volume) {
+					iterator = 1;
+				}
 				System.out.println("Usunieto słowo z tabeli z pozycji: " + iterator);
-				txtENG.setText(sqlForApp.selectWord("list1", "engWord", iterator));
+				if (volume > 0) {
+					volume--;
+				}
+				if (volume != 0) {
+					txtENG.setText(sqlForApp.selectWord("list1", "engWord", iterator));
+
+				} else {
+					txtENG.setText("");
+				}
 				txtPL.setText("");
 				// setting label which is showing current position in table
-				volume--;
+
 				String label = iterator + "/" + volume;
 				lblNumber.setText(label);
 
-				/////// I'm am not sure the below is necessary
+				/////// I'm am not sure the below is necessary here
 				/////// //////////////////////
 				sqlForApp.createTables();
 			}
@@ -160,7 +183,7 @@ public class E2 extends JFrame {
 		btnDelete.setBounds(69, 155, 89, 45);
 		contentPane.add(btnDelete);
 
-		// btn Add
+		// ADD /////////////////////////////////////////////////
 		btnAdd = new JButton("Add");
 		btnAdd.setBounds(69, 97, 89, 47);
 		contentPane.add(btnAdd);
@@ -172,6 +195,7 @@ public class E2 extends JFrame {
 				System.out.println("dodano slowo do tabeli");
 				txtENG.setText("");
 				txtPL.setText("");
+				prompt.setText("");
 
 				// setting label which is showing current position in table
 				volume++;
@@ -203,6 +227,10 @@ public class E2 extends JFrame {
 		lblNumber = new JLabel(label);
 		lblNumber.setBounds(400, 236, 24, 14);
 		contentPane.add(lblNumber);
+
+		prompt = new JLabel("");
+		prompt.setBounds(94, 0, 150, 14);
+		contentPane.add(prompt);
 
 	}
 }

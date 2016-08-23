@@ -17,6 +17,8 @@ public class SQLforApp {
 	private Statement stat;
 	private int count;
 
+	// the constructor - responsible for getting connection with data
+	// and invoke method which creates tables
 	public SQLforApp() {
 		try {
 			Class.forName(SQLforApp.DRIVER);
@@ -37,6 +39,7 @@ public class SQLforApp {
 		createTables();
 	}
 
+	// the method which creates tables
 	public boolean createTables() {
 		String createList1 = "CREATE TABLE IF NOT EXISTS list1 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
 		String createList2 = "CREATE TABLE IF NOT EXISTS list2 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
@@ -52,6 +55,7 @@ public class SQLforApp {
 		return true;
 	}
 
+	// the method which deletes table and creates again the empty one
 	public boolean clearTable(String tableName) {
 		String createList = "CREATE TABLE IF NOT EXISTS " + tableName
 				+ " (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
@@ -68,24 +72,10 @@ public class SQLforApp {
 		return true;
 	}
 
-	/*
-	 * public boolean dropIndex(String tableName, int iterator) { try {
-	 * 
-	 * stat.execute("DROP ROW " + tableName);
-	 * System.out.println("USUNIETO INDEX: " + iterator);
-	 * 
-	 * } catch (SQLException e) { System.err.println("Blad przy: DROP INDEX");
-	 * e.printStackTrace(); return false; } return true; }
-	 */
-
-	public boolean deleteWord(String tableName, int iterator) {
-		String deleteFrom = "DELETE FROM " + tableName + " WHERE id_word = '" + iterator + "'";
+	public boolean deleteWord(String tableName, String engWord) {
+		String deleteFrom = "DELETE FROM " + tableName + " WHERE engWord = '" + engWord + "'";
 		try {
-			System.out.println("Usuniento słowo: " + selectWord(tableName, "engWord", iterator));
 			stat.execute(deleteFrom);
-			System.out.println("Aktualne słowo na tej pozycji: " + selectWord(tableName, "engWord", iterator));
-			System.out.println("Iterator: " + iterator);
-			System.out.println("word_id: " + selectWord(tableName, "id_word", iterator) + " puste?");
 		} catch (SQLException e) {
 			System.err.println("Blad przy usuwaniu slowa");
 			e.printStackTrace();
@@ -110,11 +100,9 @@ public class SQLforApp {
 		return true;
 	}
 
-	// do usuniecia poźniej
-	int licznik = 0;
-
+	// the method used for selecting particular fields from database
+	// - used by buttons CHECK, NEXT, BACK
 	public String selectWord(String tableName, String columnName, int wordId) {
-
 		String outcome = "";
 		System.out.println(columnName);
 		try {
@@ -132,12 +120,10 @@ public class SQLforApp {
 			String engWord;
 			String plWord;
 
-			licznik++;
 			plWord = result.getString("plWord");
 			engWord = result.getString("engWord");
 
-			System.out.println("licznik: " + licznik + " zawartosc tego wiersza: " + engWord + "wynik getRow(): "
-					+ result.getRow());
+			System.out.println("result of getRow(): " + result.getRow());
 
 			if (columnName.equals("engWord")) {
 				outcome = engWord;
@@ -150,15 +136,13 @@ public class SQLforApp {
 
 		return outcome;
 	}
-
+// the method for checking how many rows the table have
 	public int countWords(String tableName) {
-		// String volume="";
 		try {
 			Statement stmt3 = conn.createStatement();
 			ResultSet rs3 = stmt3.executeQuery("SELECT COUNT(*) AS total FROM " + tableName);
 			while (rs3.next()) {
 				count = rs3.getInt("total");
-				// volume = count+"";
 			}
 
 		} catch (SQLException e) {
