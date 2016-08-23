@@ -1,8 +1,8 @@
 package pl.com.pattern.less.EngApp;
 
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 public class E2 extends JFrame {
+	// first commit for the branch Sceleton3
 
 	private JPanel contentPane;
 	private JTextArea txtENG;
@@ -80,25 +81,13 @@ public class E2 extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// moving to the next row in the table
 
-				iterator++;
-				System.out.println("Przejscie do nastepnej pozycji w tabeli: " + iterator);
-				/*
-				 * if (sqlForApp.selectWord("list1", "engWord",
-				 * iterator).equals("") && iterator<10){
-				 * System.out.println("''"); actionPerformed(arg0); }
-				 */
-				// moving to the next row in the table
-
-				/*
-				 * if (sqlForApp.selectWord("list1", "engWord",
-				 * iterator).equals(null)){ System.out.println("null"); } if
-				 * (sqlForApp.selectWord("list1", "engWord", iterator)==(null)){
-				 * System.out.println("==null"); } if
-				 * (sqlForApp.selectWord("list1", "engWord", iterator)==("")){
-				 * System.out.println("==''"); } if (true){
-				 * System.out.println("jasna cholera!!!!!!!!"); }
-				 */
-
+				if (iterator < volume) {
+					iterator++;
+					System.out.println("Przejscie do nastepnej pozycji w tabeli: " + iterator);
+				} else {
+					iterator = 1;
+					System.out.println("Przejscie do pierwszej pozycji w tabeli: " + iterator);
+				}
 				String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
 				txtENG.setText(resultSelectENG);
 				txtPL.setText("");
@@ -115,13 +104,23 @@ public class E2 extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// moving to the previous row in the table
-				iterator--;
-				System.out.println("Przejscie do poprzedniej pozycji w tabeli: " + iterator);
+				
+			// obsluuzyc pusta tabele
+				
+				if (iterator > 1) {
+					iterator--;
+					System.out.println("Przejscie do poprzedniej pozycji w tabeli: " + iterator);
+					
+				} else {
+					iterator = volume;
+					System.out.println("Przejscie do ostatniej pozycji w tabeli: " + iterator);
+				}
 				String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
-				System.out.println("to sie nie wyswietla " + resultSelectENG + " to sie wyswietla");
 				txtENG.setText(resultSelectENG);
 				txtPL.setText("");
-
+				
+				
+				
 				// setting label which is showing current position in table
 				String label = iterator + "/" + volume;
 				lblNumber.setText(label);
@@ -204,19 +203,6 @@ public class E2 extends JFrame {
 		lblNumber = new JLabel(label);
 		lblNumber.setBounds(400, 236, 24, 14);
 		contentPane.add(lblNumber);
-		////////////////////// znalezc klase kursor i metody rawQuery i
-		////////////////////// moveToPosition//////////////
-
-		JButton btnDrop = new JButton("Drop");
-		btnDrop.setBounds(187, 215, 89, 23);
-		contentPane.add(btnDrop);
-		btnDrop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Cursor cursor = sqlForApp.rawQuery("SELECT * FROM Powtorki",
-				// null);
-
-			}
-		});
 
 	}
 }
