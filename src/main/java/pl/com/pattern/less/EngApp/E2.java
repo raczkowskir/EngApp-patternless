@@ -1,24 +1,29 @@
 package pl.com.pattern.less.EngApp;
 
+import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public class E2 extends JFrame {
-	// last commit for:EngApp Pattern less - part 1 Sceleton3
-/*	Right now user can:
-		- use SQLite DB with GUI
-		- create and drop only one table
-		- insert new rows
-		- delete rows
-		- brows content of the table(forward and backward)*/
+public class E2 extends JFrame implements ItemListener{
+	// commit for:EngApp Pattern less - part 2 ManyTables
+	/*
+	 * Right now user can: - use SQLite DB with GUI - create and drop only one
+	 * table - insert new rows - delete rows - brows content of the
+	 * table(forward and backward) and: (part2) - move between components by
+	 * using TAB button
+	 */
 
 	private JPanel contentPane;
 	private JTextArea txtENG;
@@ -40,17 +45,33 @@ public class E2 extends JFrame {
 	// object of SQLite data base - it will be store all data for this
 	// application
 	SQLforApp sqlForApp = new SQLforApp();
+	// Menu bar
+	JMenuBar menuBar;
+	// list for selecting table we want to use
+	Choice choice; 
 
 	// the constructor of class E2
 	public E2() {
 		// settings of frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 80, 450, 300);
+		setBounds(500, 80, 450, 319);
+		/////////////////////////// MENU ////////////////////////////
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		//list of tables available for user
+		choice = new Choice();
+		menuBar.add(choice);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		// adding new available tables
+		choice.add("1");
+		choice.add("2");
+		choice.add("3");
+		choice.add("4");
+		choice.addItemListener(this);
+		
 		// creating tables
 		sqlForApp.createTables();
 		System.out.println("utworzono tabele");
@@ -75,11 +96,40 @@ public class E2 extends JFrame {
 		txtENG = new JTextArea();
 		txtENG.setBounds(69, 24, 207, 20);
 		contentPane.add(txtENG);
+
+		// below code lets user move between JTextArea by using TAB btn
+		txtENG.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_TAB) {
+					if (e.getModifiers() > 0) {
+						txtENG.transferFocusBackward();
+					} else {
+						txtENG.transferFocus();
+					}
+					e.consume();
+				}
+			}
+		});
 		// JtxtPL(
 		txtPL = new JTextArea();
 		txtPL.setBounds(69, 57, 207, 20);
 		contentPane.add(txtPL);
 		txtPL.setColumns(10);
+		// below code lets user move between JTextArea by using TAB btn
+		txtPL.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_TAB) {
+					if (e.getModifiers() > 0) {
+						txtPL.transferFocusBackward();
+					} else {
+						txtPL.transferFocus();
+					}
+					e.consume();
+				}
+			}
+		});
 		// NEXT///////////////////////////////////
 		btnNext = new JButton("Next");
 		btnNext.setBounds(294, 97, 89, 47);
@@ -232,5 +282,14 @@ public class E2 extends JFrame {
 		prompt.setBounds(94, 0, 150, 14);
 		contentPane.add(prompt);
 
+	}
+// the method for choosing table from scroll list in menu bar
+	public void itemStateChanged(ItemEvent e) {
+	if (choice.getSelectedItem().equals("1"))
+        System.out.println("Wybrales 1");
+	if (choice.getSelectedItem().equals("2"))
+		System.out.println("Wybrales 2");
+
+		
 	}
 }
