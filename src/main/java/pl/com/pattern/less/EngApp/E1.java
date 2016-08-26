@@ -20,11 +20,12 @@ public class E1 extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	static final  E1 frame1 = new E1();
 	static final E2 frame2= new E2();
+	static final E2_b frame3= new E2_b();
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-				//	frame1 = new E1();
 					frame1.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,27 +34,43 @@ public class E1 extends JFrame implements ActionListener{
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public E1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 80, 450, 300);
+		setBounds(500, 80, 450, 319);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JButton toE2 = new JButton("toE2");
-		toE2.setBounds(51, 34, 329, 179);
+		toE2.setBounds(53, 100, 141, 82);
 		contentPane.add(toE2);
-		toE2.addActionListener(this);
+		toE2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame2.setVisible(true);
+				frame1.setVisible(false);
+				log("Przejscie do drugiego ekranu");
+			}
+		});
+		
+		
+		JButton toE2_b = new JButton("toE2_b");
+		toE2_b.setBounds(245, 100, 141, 82);
+		contentPane.add(toE2_b);
+		toE2_b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame3.setVisible(true);
+				frame1.setVisible(false);
+				log("Przejscie do ekranu do dodawania list");
+			}
+		});
+		
 			}
 
 	public void actionPerformed(ActionEvent arg0) {
-		frame2.setVisible(true);
+		/*frame2.setVisible(true);
 		frame1.setVisible(false);
-		log("Przejscie do drugiego ekranu");
+		log("Przejscie do drugiego ekranu");*/
 		}
 		
 	

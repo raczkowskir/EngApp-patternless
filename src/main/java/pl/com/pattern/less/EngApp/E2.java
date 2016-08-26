@@ -49,7 +49,10 @@ public class E2 extends JFrame implements ItemListener{
 	JMenuBar menuBar;
 	// list for selecting table we want to use
 	Choice choice; 
-
+	
+	// field which is using for setting table 
+	private String list = "list1";
+	
 	// the constructor of class E2
 	public E2() {
 		// settings of frame
@@ -77,7 +80,7 @@ public class E2 extends JFrame implements ItemListener{
 		System.out.println("utworzono tabele");
 
 		// the method which is counting total number of rows for current table
-		volume = sqlForApp.countWords("list1");
+		volume = sqlForApp.countWords(list);
 		System.out.println("oto label:" + iterator + "/" + volume);
 
 		// btn toE1
@@ -150,7 +153,7 @@ public class E2 extends JFrame implements ItemListener{
 					txtPL.setText("");
 					prompt.setText("Table is empty!");
 				} else {
-					String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
+					String resultSelectENG = sqlForApp.selectWord(list, "engWord", iterator);
 					txtENG.setText(resultSelectENG);
 					txtPL.setText("");
 				}
@@ -178,7 +181,7 @@ public class E2 extends JFrame implements ItemListener{
 					txtPL.setText("");
 					prompt.setText("Table is empty!");
 				} else {
-					String resultSelectENG = sqlForApp.selectWord("list1", "engWord", iterator);
+					String resultSelectENG = sqlForApp.selectWord(list, "engWord", iterator);
 					txtENG.setText(resultSelectENG);
 					txtPL.setText("");
 				}
@@ -196,7 +199,7 @@ public class E2 extends JFrame implements ItemListener{
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (volume != 0) {
-					String resultSelect = sqlForApp.selectWord("list1", "plWord", iterator);
+					String resultSelect = sqlForApp.selectWord(list, "plWord", iterator);
 					txtPL.setText(resultSelect);
 				}
 			}
@@ -205,7 +208,7 @@ public class E2 extends JFrame implements ItemListener{
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sqlForApp.deleteWord("list1", txtENG.getText());
+				sqlForApp.deleteWord(list, txtENG.getText());
 				if (iterator == volume) {
 					iterator = 1;
 				}
@@ -214,7 +217,7 @@ public class E2 extends JFrame implements ItemListener{
 					volume--;
 				}
 				if (volume != 0) {
-					txtENG.setText(sqlForApp.selectWord("list1", "engWord", iterator));
+					txtENG.setText(sqlForApp.selectWord(list, "engWord", iterator));
 
 				} else {
 					txtENG.setText("");
@@ -241,7 +244,7 @@ public class E2 extends JFrame implements ItemListener{
 			public void actionPerformed(ActionEvent e) {
 				String StrTxtENG = txtENG.getText();
 				String StrTxtPL = txtPL.getText();
-				sqlForApp.insertWord("list1", StrTxtENG, StrTxtPL);
+				sqlForApp.insertWord(list, StrTxtENG, StrTxtPL);
 				System.out.println("dodano slowo do tabeli");
 				txtENG.setText("");
 				txtPL.setText("");
@@ -260,7 +263,7 @@ public class E2 extends JFrame implements ItemListener{
 		btnClearList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// the method which clear current table
-				sqlForApp.clearTable("list1");
+				sqlForApp.clearTable(list);
 				// setting label which is showing current position in table
 				volume = 0;
 				String label = iterator + "/" + volume;
@@ -271,7 +274,7 @@ public class E2 extends JFrame implements ItemListener{
 		});
 
 		/// counting volume
-		volume = sqlForApp.countWords("list1");
+		volume = sqlForApp.countWords(list);
 		// labelNUMBER
 		String label = iterator + "/" + volume;
 		lblNumber = new JLabel(label);
@@ -285,11 +288,25 @@ public class E2 extends JFrame implements ItemListener{
 	}
 // the method for choosing table from scroll list in menu bar
 	public void itemStateChanged(ItemEvent e) {
-	if (choice.getSelectedItem().equals("1"))
-        System.out.println("Wybrales 1");
+	if (choice.getSelectedItem().equals("1")){
+        System.out.println("Ustawiono: list1");
+        list = "list1";
+        //setting label, volume and iterator for new list
+        iterator =0;
+        volume = sqlForApp.countWords(list);
+        String label = iterator + "/" + volume;
+		lblNumber.setText(label);
+        }
 	if (choice.getSelectedItem().equals("2"))
-		System.out.println("Wybrales 2");
-
+	{
+        System.out.println("Ustawiono: list2");
+        list = "list2";
+      //setting label, volume and iterator for new list
+        iterator =0;
+        volume = sqlForApp.countWords(list);
+        String label = iterator + "/" + volume;
+		lblNumber.setText(label);
+        }
 		
 	}
 }
