@@ -43,9 +43,16 @@ public class SQLforApp {
 	public boolean createTables() {
 		String createList1 = "CREATE TABLE IF NOT EXISTS list1 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
 		String createList2 = "CREATE TABLE IF NOT EXISTS list2 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
+		String createList3 = "CREATE TABLE IF NOT EXISTS list3 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
+		String createList4 = "CREATE TABLE IF NOT EXISTS list4 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
+		String createList5 = "CREATE TABLE IF NOT EXISTS list5 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
+		
 		try {
 			stat.execute(createList1);
 			stat.execute(createList2);
+			stat.execute(createList3);
+			stat.execute(createList4);
+			stat.execute(createList5);
 
 		} catch (SQLException e) {
 			System.err.println("Blad przy tworzeniu tabeli");

@@ -72,10 +72,11 @@ public class E2 extends JFrame implements ItemListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		// adding new available tables
-		choice.add(E2_b.name1);
-		choice.add(E2_b.name2);
+		choice.add("1");
+		choice.add("2");
 		choice.add("3");
 		choice.add("4");
+		choice.add("5");
 		choice.addItemListener(this);
 		
 		// creating tables
@@ -299,6 +300,7 @@ public class E2 extends JFrame implements ItemListener{
         volume = sqlForApp.countWords(list);
         String label = iterator + "/" + volume;
 		lblNumber.setText(label);
+		prompt.setText("");
         }
 	if (choice.getSelectedItem().equals("2"))
 	{
@@ -309,7 +311,40 @@ public class E2 extends JFrame implements ItemListener{
         volume = sqlForApp.countWords(list);
         String label = iterator + "/" + volume;
 		lblNumber.setText(label);
+		prompt.setText("");
         }
+	if (choice.getSelectedItem().equals("3")){
+        System.out.println("Ustawiono: list3");
+        list = "list3";
+        //setting label, volume and iterator for new list
+        iterator =0;
+        volume = sqlForApp.countWords(list);
+        String label = iterator + "/" + volume;
+		lblNumber.setText(label);
+		prompt.setText("");
+        }
+	if (choice.getSelectedItem().equals("4"))
+	{
+        System.out.println("Ustawiono: list4");
+        list = "list4";
+      //setting label, volume and iterator for new list
+        iterator =0;
+        volume = sqlForApp.countWords(list);
+        String label = iterator + "/" + volume;
+		lblNumber.setText(label);
+		prompt.setText("");
+	}
+	if (choice.getSelectedItem().equals("5"))
+	{
+        System.out.println("Ustawiono: list5");
+        list = "list5";
+      //setting label, volume and iterator for new list
+        iterator =0;
+        volume = sqlForApp.countWords(list);
+        String label = iterator + "/" + volume;
+		lblNumber.setText(label);
+		prompt.setText("");
+	}
 		
 	}
 }
