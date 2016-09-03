@@ -50,8 +50,11 @@ public class E2 extends JFrame implements ItemListener{
 	// list for selecting table we want to use
 	Choice choice; 
 	
-	// field which is using for setting table 
+	// field which is using for setting table
 	private String list = "list1";
+	
+	////////TEST METHOD
+	
 	
 	// the constructor of class E2
 	public E2() {
@@ -69,8 +72,8 @@ public class E2 extends JFrame implements ItemListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		// adding new available tables
-		choice.add("1");
-		choice.add("2");
+		choice.add(E2_b.name1);
+		choice.add(E2_b.name2);
 		choice.add("3");
 		choice.add("4");
 		choice.addItemListener(this);
