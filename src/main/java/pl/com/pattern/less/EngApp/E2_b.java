@@ -56,12 +56,6 @@ public class E2_b extends JFrame implements ItemListener {
 		btnAddNewTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// dzialaja metody dla pola klasy E2 - utworzyc w klasie
-				// sqlForApp metode dodawania recordow z excela
-				// i zaimplementowac ja dla tego przycisku nastepnie
-				// grab and drop
-				
-				
 				System.out.println("przycisk dziala");
 				/*String resultSelectENG = E1.frame1.frame2.sqlForApp.selectWord("list2", "engWord", 2);
 				System.out.println(resultSelectENG);*/
@@ -74,10 +68,6 @@ public class E2_b extends JFrame implements ItemListener {
 
 			}
 		});
-
-		// na podstawie choice z menu bar E2 dodac choice tutaj do listy !!
-		// /////////////////
-
 		// btn toE1 ////////////////////////////////
 		JButton toE1 = new JButton("toE1");
 		toE1.setBounds(34, 188, 76, 47);

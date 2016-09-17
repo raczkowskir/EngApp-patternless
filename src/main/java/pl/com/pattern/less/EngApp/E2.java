@@ -19,10 +19,10 @@ import javax.swing.border.EmptyBorder;
 public class E2 extends JFrame implements ItemListener{
 	// commit for:EngApp Pattern less - part 2 ManyTables
 	/*
-	 * Right now user can: - use SQLite DB with GUI - create and drop only one
-	 * table - insert new rows - delete rows - brows content of the
-	 * table(forward and backward) and: (part2) - move between components by
-	 * using TAB button
+	 * Right now user can: - use SQLite DB with GUI - create and drop tables
+	 * - insert new rows - delete rows - brows content of the table(forward and backward)
+	 * - move between components by using TAB button
+	 * - adding whole list on words into table by filing excel file
 	 */
 
 	private JPanel contentPane;

@@ -19,7 +19,7 @@ public class E1 extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	static final  E1 frame1 = new E1();
-	static final E2 frame2= new E2();
+	static E2 frame2= new E2();
 	static final E2_b frame3= new E2_b();
 	
 	public static void main(String[] args) {
@@ -47,6 +47,7 @@ public class E1 extends JFrame implements ActionListener{
 		contentPane.add(toE2);
 		toE2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame2= new E2();
 				frame2.setVisible(true);
 				frame1.setVisible(false);
 				log("Przejscie do drugiego ekranu");
@@ -68,10 +69,7 @@ public class E1 extends JFrame implements ActionListener{
 			}
 
 	public void actionPerformed(ActionEvent arg0) {
-		/*frame2.setVisible(true);
-		frame1.setVisible(false);
-		log("Przejscie do drugiego ekranu");*/
-		}
+			}
 		
 	
 }
