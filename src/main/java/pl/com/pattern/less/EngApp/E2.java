@@ -15,6 +15,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class E2 extends JFrame implements ItemListener{
 	// commit for:EngApp Pattern less - part 2 ManyTables
@@ -58,6 +62,7 @@ public class E2 extends JFrame implements ItemListener{
 	
 	// the constructor of class E2
 	public E2() {
+		setTitle("EngApp");
 		// settings of frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 80, 450, 319);
@@ -66,9 +71,12 @@ public class E2 extends JFrame implements ItemListener{
 		setJMenuBar(menuBar);
 		//list of tables available for user
 		choice = new Choice();
+		choice.setForeground(Color.BLUE);
 		menuBar.add(choice);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.setForeground(Color.WHITE);
+		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		// adding new available tables
@@ -88,8 +96,9 @@ public class E2 extends JFrame implements ItemListener{
 		System.out.println("oto label:" + iterator + "/" + volume);
 
 		// btn toE1
-		JButton toE1 = new JButton("toE1");
-		toE1.setBounds(10, 203, 76, 47);
+		JButton toE1 = new JButton("");
+		toE1.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (1).png"));
+		toE1.setBounds(10, 199, 76, 47);
 		contentPane.add(toE1);
 		toE1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -101,6 +110,7 @@ public class E2 extends JFrame implements ItemListener{
 		});
 		// JTextArea
 		txtENG = new JTextArea();
+		txtENG.setFont(new Font("Arial Black", Font.BOLD, 12));
 		txtENG.setBounds(69, 24, 207, 20);
 		contentPane.add(txtENG);
 
@@ -120,6 +130,7 @@ public class E2 extends JFrame implements ItemListener{
 		});
 		// JtxtPL(
 		txtPL = new JTextArea();
+		txtPL.setFont(new Font("Arial Black", Font.BOLD, 12));
 		txtPL.setBounds(69, 57, 207, 20);
 		contentPane.add(txtPL);
 		txtPL.setColumns(10);
@@ -138,8 +149,9 @@ public class E2 extends JFrame implements ItemListener{
 			}
 		});
 		// NEXT///////////////////////////////////
-		btnNext = new JButton("Next");
-		btnNext.setBounds(294, 97, 89, 47);
+		btnNext = new JButton("");
+		btnNext.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (5).png"));
+		btnNext.setBounds(294, 101, 81, 38);
 		contentPane.add(btnNext);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -167,8 +179,9 @@ public class E2 extends JFrame implements ItemListener{
 			}
 		});
 		// BACK///////////////////////////////////
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(187, 97, 89, 47);
+		JButton btnBack = new JButton("");
+		btnBack.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (4).png"));
+		btnBack.setBounds(182, 101, 81, 38);
 		contentPane.add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -197,8 +210,9 @@ public class E2 extends JFrame implements ItemListener{
 		});
 
 		/// CHECK///////////////////////////////////
-		btnCheck = new JButton("Check");
-		btnCheck.setBounds(294, 155, 89, 45);
+		btnCheck = new JButton("");
+		btnCheck.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (6).png"));
+		btnCheck.setBounds(294, 155, 81, 38);
 		contentPane.add(btnCheck);
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,7 +223,8 @@ public class E2 extends JFrame implements ItemListener{
 			}
 		});
 		// DELETE///////////////////////////////////
-		btnDelete = new JButton("Delete");
+		btnDelete = new JButton("");
+		btnDelete.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (3).png"));
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sqlForApp.deleteWord(list, txtENG.getText());
@@ -237,12 +252,13 @@ public class E2 extends JFrame implements ItemListener{
 				sqlForApp.createTables();
 			}
 		});
-		btnDelete.setBounds(69, 155, 89, 45);
+		btnDelete.setBounds(69, 155, 81, 38);
 		contentPane.add(btnDelete);
 
 		// ADD /////////////////////////////////////////////////
-		btnAdd = new JButton("Add");
-		btnAdd.setBounds(69, 97, 89, 47);
+		btnAdd = new JButton("");
+		btnAdd.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (2).png"));
+		btnAdd.setBounds(69, 101, 81, 38);
 		contentPane.add(btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -261,8 +277,9 @@ public class E2 extends JFrame implements ItemListener{
 			}
 		});
 		// btn ClearList
-		btnClearList = new JButton("btnClearList");
-		btnClearList.setBounds(335, 11, 89, 23);
+		btnClearList = new JButton("");
+		btnClearList.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (8).png"));
+		btnClearList.setBounds(304, 16, 120, 30);
 		contentPane.add(btnClearList);
 		btnClearList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -282,7 +299,8 @@ public class E2 extends JFrame implements ItemListener{
 		// labelNUMBER
 		String label = iterator + "/" + volume;
 		lblNumber = new JLabel(label);
-		lblNumber.setBounds(400, 236, 24, 14);
+		lblNumber.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNumber.setBounds(374, 221, 50, 25);
 		contentPane.add(lblNumber);
 
 		prompt = new JLabel("");

@@ -19,6 +19,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
 
 public class E2_b extends JFrame implements ItemListener {
 
@@ -43,15 +46,18 @@ public class E2_b extends JFrame implements ItemListener {
 	String subString1[] = new String[5];
 
 	public E2_b() {
+		setTitle("EngApp");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 80, 450, 319);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		// btn AddNewTable ///////////////////////////////
-		btnAddNewTable = new JButton("Add words");
-		btnAddNewTable.setBounds(285, 75, 128, 66);
+		btnAddNewTable = new JButton("");
+		btnAddNewTable.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (11).png"));
+		btnAddNewTable.setBounds(285, 75, 128, 87);
 		contentPane.add(btnAddNewTable);
 		btnAddNewTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,11 +75,14 @@ public class E2_b extends JFrame implements ItemListener {
 			}
 		});
 		// btn toE1 ////////////////////////////////
-		JButton toE1 = new JButton("toE1");
+		JButton toE1 = new JButton("");
+		toE1.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (1).png"));
 		toE1.setBounds(34, 188, 76, 47);
 		contentPane.add(toE1);
 		// choice list with tables names
 		choice = new Choice();
+		choice.setFont(new Font("Dialog", Font.BOLD, 12));
+		choice.setForeground(Color.BLUE);
 		choice.setBounds(83, 96, 181, 20);
 		contentPane.add(choice);
 		choice.add("1");
@@ -85,6 +94,7 @@ public class E2_b extends JFrame implements ItemListener {
 		
 		//JLabel lblChoseTable
 		lblChoseTable = new JLabel("Chose table:");
+		lblChoseTable.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblChoseTable.setBounds(93, 63, 120, 26);
 		contentPane.add(lblChoseTable);
 		
