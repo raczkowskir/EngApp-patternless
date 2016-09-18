@@ -1,6 +1,5 @@
 package pl.com.pattern.less.EngApp;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLforApp {
+
+	// This class do not contain its own view
+	// it is using for database managing
 
 	public static final String DRIVER = "org.sqlite.JDBC";
 	public static final String DB_URL = "jdbc:sqlite:biblioteka.db";
@@ -46,7 +48,7 @@ public class SQLforApp {
 		String createList3 = "CREATE TABLE IF NOT EXISTS list3 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
 		String createList4 = "CREATE TABLE IF NOT EXISTS list4 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
 		String createList5 = "CREATE TABLE IF NOT EXISTS list5 (id_word INTEGER PRIMARY KEY AUTOINCREMENT, engWord varchar(255), plWord varchar(255))";
-		
+
 		try {
 			stat.execute(createList1);
 			stat.execute(createList2);
@@ -143,7 +145,8 @@ public class SQLforApp {
 
 		return outcome;
 	}
-// the method for checking how many rows the table have
+
+	// the method for checking how many rows the table have
 	public int countWords(String tableName) {
 		try {
 			Statement stmt3 = conn.createStatement();

@@ -1,6 +1,8 @@
 package pl.com.pattern.less.EngApp;
 
 import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -8,31 +10,28 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
-import java.awt.Font;
-import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-public class E2 extends JFrame implements ItemListener{
-	// commit for:EngApp Pattern less - part 2 ManyTables
-	/*
-	 * Right now user can: - use SQLite DB with GUI - create and drop tables
-	 * - insert new rows - delete rows - brows content of the table(forward and backward)
-	 * - move between components by using TAB button
-	 * - adding whole list on words into table by filing excel file
-	 */
+public class E2 extends JFrame implements ItemListener {
 
+	/*
+	 * this view lets user: chose table he want to browse add and delete
+	 * separate words clear whole table browsing words typing translation by
+	 * your self and checking is it right
+	 */
 	private JPanel contentPane;
 	private JTextArea txtENG;
 	private JTextArea txtPL;
 	///////////////////////////
+	private JButton toE1;
+	private JButton btnStatistics;
 	private JButton btnNext;
 	private JButton btnDelete;
 	private JButton btnAdd;
@@ -52,14 +51,18 @@ public class E2 extends JFrame implements ItemListener{
 	// Menu bar
 	JMenuBar menuBar;
 	// list for selecting table we want to use
-	Choice choice; 
-	
+	Choice choice;
+
 	// field which is using for setting table
 	private String list = "list1";
-	
-	////////TEST METHOD
-	
-	
+
+	// static fields for generating statistic for the view E3
+	// all of them are use in the method "check" and later in class E3
+	static String wrongAnswers = "";
+	static int noOfAnswers = 0;
+	static int noOfGoodAns = 0;
+	static int noOfBadAns = 0;
+
 	// the constructor of class E2
 	public E2() {
 		setTitle("EngApp");
@@ -69,16 +72,28 @@ public class E2 extends JFrame implements ItemListener{
 		/////////////////////////// MENU ////////////////////////////
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		//list of tables available for user
+		// list of tables available for user
 		choice = new Choice();
 		choice.setForeground(Color.BLUE);
 		menuBar.add(choice);
+
+		// btnStatistics
+		btnStatistics = new JButton("STATISTICS");
+		menuBar.add(btnStatistics);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		btnStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				E1.frame4 = new E3();
+				E1.frame2.setVisible(false);
+				E1.frame4.setVisible(true);
+				System.out.println("Przejście do trzeciego ekranu - statystyk");
+			}
+		});
 		// adding new available tables
 		choice.add("1");
 		choice.add("2");
@@ -86,7 +101,7 @@ public class E2 extends JFrame implements ItemListener{
 		choice.add("4");
 		choice.add("5");
 		choice.addItemListener(this);
-		
+
 		// creating tables
 		sqlForApp.createTables();
 		System.out.println("utworzono tabele");
@@ -96,7 +111,7 @@ public class E2 extends JFrame implements ItemListener{
 		System.out.println("oto label:" + iterator + "/" + volume);
 
 		// btn toE1
-		JButton toE1 = new JButton("");
+		toE1 = new JButton("");
 		toE1.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (1).png"));
 		toE1.setBounds(10, 199, 76, 47);
 		contentPane.add(toE1);
@@ -161,6 +176,7 @@ public class E2 extends JFrame implements ItemListener{
 					iterator++;
 				} else if (iterator == volume && volume != 0) {
 					iterator = 1;
+					lblNumber.setForeground(Color.BLUE);
 				} else {
 					iterator = 0;
 				}
@@ -217,8 +233,27 @@ public class E2 extends JFrame implements ItemListener{
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (volume != 0) {
+					noOfAnswers = noOfAnswers + 1;
+					System.out.println(noOfAnswers + " -liczba wszystkich odpowiedzi");
 					String resultSelect = sqlForApp.selectWord(list, "plWord", iterator);
-					txtPL.setText(resultSelect);
+					if (resultSelect.equals(txtPL.getText())) {
+						prompt.setText("WELL DONE !");
+						txtPL.setForeground(Color.GREEN);
+						noOfGoodAns = noOfGoodAns + 1;
+
+					} else {
+						txtPL.setText(resultSelect + "  - TRY HARDER!");
+						txtPL.setForeground(Color.RED);
+						// below code lets move words to next line if we have
+						// more than 15 words
+						if (noOfBadAns == 15) {
+							wrongAnswers = wrongAnswers + sqlForApp.selectWord(list, "engWord", iterator) + ",<br>";
+						} else {
+							wrongAnswers = wrongAnswers + sqlForApp.selectWord(list, "engWord", iterator) + ", ";
+						}
+						System.out.println(wrongAnswers + " -to są złe odpowiedzi");
+					}
+					System.out.println(noOfGoodAns + " -liczba dobrych odpowiedzi");
 				}
 			}
 		});
@@ -308,61 +343,59 @@ public class E2 extends JFrame implements ItemListener{
 		contentPane.add(prompt);
 
 	}
-// the method for choosing table from scroll list in menu bar
+
+	// the method for choosing table from scroll list in menu bar
 	public void itemStateChanged(ItemEvent e) {
-	if (choice.getSelectedItem().equals("1")){
-        System.out.println("Ustawiono: list1");
-        list = "list1";
-        //setting label, volume and iterator for new list
-        iterator =0;
-        volume = sqlForApp.countWords(list);
-        String label = iterator + "/" + volume;
-		lblNumber.setText(label);
-		prompt.setText("");
-        }
-	if (choice.getSelectedItem().equals("2"))
-	{
-        System.out.println("Ustawiono: list2");
-        list = "list2";
-      //setting label, volume and iterator for new list
-        iterator =0;
-        volume = sqlForApp.countWords(list);
-        String label = iterator + "/" + volume;
-		lblNumber.setText(label);
-		prompt.setText("");
-        }
-	if (choice.getSelectedItem().equals("3")){
-        System.out.println("Ustawiono: list3");
-        list = "list3";
-        //setting label, volume and iterator for new list
-        iterator =0;
-        volume = sqlForApp.countWords(list);
-        String label = iterator + "/" + volume;
-		lblNumber.setText(label);
-		prompt.setText("");
-        }
-	if (choice.getSelectedItem().equals("4"))
-	{
-        System.out.println("Ustawiono: list4");
-        list = "list4";
-      //setting label, volume and iterator for new list
-        iterator =0;
-        volume = sqlForApp.countWords(list);
-        String label = iterator + "/" + volume;
-		lblNumber.setText(label);
-		prompt.setText("");
-	}
-	if (choice.getSelectedItem().equals("5"))
-	{
-        System.out.println("Ustawiono: list5");
-        list = "list5";
-      //setting label, volume and iterator for new list
-        iterator =0;
-        volume = sqlForApp.countWords(list);
-        String label = iterator + "/" + volume;
-		lblNumber.setText(label);
-		prompt.setText("");
-	}
-		
+		if (choice.getSelectedItem().equals("1")) {
+			System.out.println("Ustawiono: list1");
+			list = "list1";
+			// setting label, volume and iterator for new list
+			iterator = 0;
+			volume = sqlForApp.countWords(list);
+			String label = iterator + "/" + volume;
+			lblNumber.setText(label);
+			prompt.setText("");
+		}
+		if (choice.getSelectedItem().equals("2")) {
+			System.out.println("Ustawiono: list2");
+			list = "list2";
+			// setting label, volume and iterator for new list
+			iterator = 0;
+			volume = sqlForApp.countWords(list);
+			String label = iterator + "/" + volume;
+			lblNumber.setText(label);
+			prompt.setText("");
+		}
+		if (choice.getSelectedItem().equals("3")) {
+			System.out.println("Ustawiono: list3");
+			list = "list3";
+			// setting label, volume and iterator for new list
+			iterator = 0;
+			volume = sqlForApp.countWords(list);
+			String label = iterator + "/" + volume;
+			lblNumber.setText(label);
+			prompt.setText("");
+		}
+		if (choice.getSelectedItem().equals("4")) {
+			System.out.println("Ustawiono: list4");
+			list = "list4";
+			// setting label, volume and iterator for new list
+			iterator = 0;
+			volume = sqlForApp.countWords(list);
+			String label = iterator + "/" + volume;
+			lblNumber.setText(label);
+			prompt.setText("");
+		}
+		if (choice.getSelectedItem().equals("5")) {
+			System.out.println("Ustawiono: list5");
+			list = "list5";
+			// setting label, volume and iterator for new list
+			iterator = 0;
+			volume = sqlForApp.countWords(list);
+			String label = iterator + "/" + volume;
+			lblNumber.setText(label);
+			prompt.setText("");
+		}
+
 	}
 }

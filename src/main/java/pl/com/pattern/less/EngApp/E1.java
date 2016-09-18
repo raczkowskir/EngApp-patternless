@@ -1,29 +1,41 @@
 package pl.com.pattern.less.EngApp;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-public class E1 extends JFrame implements ActionListener{
-	
-	//the method for debuging
-		public void log(String a){
-			System.out.println(a);
-		}
+public class E1 extends JFrame implements ActionListener {
+
+	// This is first view of the program which lets user to chose
+	// between view E2 - browsing words
+	// or view E2_b - adding entire lists to tables
+
+	// the method for debuging
+	public void log(String a) {
+		System.out.println(a);
+	}
 
 	private JPanel contentPane;
-	static final  E1 frame1 = new E1();
-	static E2 frame2= new E2();
-	static final E2_b frame3= new E2_b();
-	
+	static final E1 frame1 = new E1();
+	static E2 frame2 = new E2();
+	static final E2_b frame3 = new E2_b();
+	static E3 frame4 = new E3();
+
+	// label
+	private JLabel lblAdvise;
+
+	// buttons
+	private JButton toE2_b;
+	private JButton toE2;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,24 +57,31 @@ public class E1 extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JButton toE2 = new JButton("");
+
+		// button toE2
+		toE2 = new JButton("");
 		toE2.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (16).png"));
-		toE2.setBounds(53, 100, 141, 82);
+		toE2.setBounds(50, 112, 141, 82);
 		contentPane.add(toE2);
 		toE2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame2= new E2();
+				frame2 = new E2();
 				frame2.setVisible(true);
 				frame1.setVisible(false);
 				log("Przejscie do drugiego ekranu");
 			}
 		});
-		
-		
-		JButton toE2_b = new JButton("");
+
+		// lblAdvise
+		lblAdvise = new JLabel(
+				"<html>This is an application for learning languages.<br> It lets user create his own lists of words, browse them, translate by him self  and check how many of his tranlations was correct.<html>");
+		lblAdvise.setBounds(55, 26, 341, 63);
+		contentPane.add(lblAdvise);
+
+		// button toE2_b
+		toE2_b = new JButton("");
 		toE2_b.setIcon(new ImageIcon("C:\\Users\\Rafał\\EngAppDesktop\\EngApp\\buttons\\button (15).png"));
-		toE2_b.setBounds(245, 100, 141, 82);
+		toE2_b.setBounds(247, 112, 141, 82);
 		contentPane.add(toE2_b);
 		toE2_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -71,11 +90,10 @@ public class E1 extends JFrame implements ActionListener{
 				log("Przejscie do ekranu do dodawania list");
 			}
 		});
-		
-			}
+
+	}
 
 	public void actionPerformed(ActionEvent arg0) {
-			}
-		
-	
+	}
+
 }
