@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,17 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-public class E1 extends JFrame implements ActionListener {
+public class E1 extends JFrame {
 
 	// This is first view of the program which lets user to chose
 	// between view E2 - browsing words
 	// or view E2_b - adding entire lists to tables
 
 	// the method for debuging
-	public void log(String a) {
-		System.out.println(a);
-	}
-
+	
 	private JPanel contentPane;
 	static final E1 frame1 = new E1();
 	static E2 frame2 = new E2();
@@ -68,7 +64,7 @@ public class E1 extends JFrame implements ActionListener {
 				frame2 = new E2();
 				frame2.setVisible(true);
 				frame1.setVisible(false);
-				log("Przejscie do drugiego ekranu");
+				System.out.println("Przejscie do drugiego ekranu");
 			}
 		});
 
@@ -87,13 +83,12 @@ public class E1 extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				frame3.setVisible(true);
 				frame1.setVisible(false);
-				log("Przejscie do ekranu do dodawania list");
+				System.out.println("Przejscie do ekranu do dodawania list");
 			}
 		});
 
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
-	}
+	
 
 }
