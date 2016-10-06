@@ -13,8 +13,12 @@ public class SQLforApp {
 	// it is using for database managing
 
 	public static final String DRIVER = "org.sqlite.JDBC";
+	//modifications for UNDO option (1)
+	//public static final String DB_URL2 = "jdbc:sqlite:biblioteka2.db";
 	public static final String DB_URL = "jdbc:sqlite:biblioteka.db";
 
+	// modifications for UNDO option (2)
+	// private Connection conn2;
 	private Connection conn;
 	private Statement stat;
 	private int count;
@@ -30,7 +34,19 @@ public class SQLforApp {
 		}
 
 		try {
+			// modifications for UNDO option (3)
+			//conn2 = DriverManager.getConnection(DB_URL2);
 			conn = DriverManager.getConnection(DB_URL);
+			// modifications for UNDO option (4)
+			//below should to be set before all DO command
+			//conn2 = conn;
+			//stat = conn.createStatement();
+			//below should to be set before all UNDO command
+			//conn = conn2;
+			//stat = conn.createStatement();
+			//UNDo will be work for Add, Delete and Clear table options
+			//it will have its own button and prompt: "The amendments were withdrawn."			
+			
 			stat = conn.createStatement();
 
 		} catch (SQLException e) {
