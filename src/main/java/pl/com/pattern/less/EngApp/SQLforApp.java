@@ -44,7 +44,7 @@ public class SQLforApp {
 			//below should to be set before all UNDO command
 			//conn = conn2;
 			//stat = conn.createStatement();
-			//UNDo will be work for Add, Delete and Clear table options
+			//UNDO will be work for Add, Delete and Clear table options
 			//it will have its own button and prompt: "The amendments were withdrawn."			
 			
 			stat = conn.createStatement();

@@ -200,5 +200,6 @@ public class E2_b extends JFrame implements ItemListener {
 
 			E1.frame1.frame2.sqlForApp.insertWord(sqlTableName, subString1[0], subString1[1]);
 		}
+		
 	}
 }
